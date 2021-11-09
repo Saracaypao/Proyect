@@ -3,7 +3,12 @@
 
 
 #include <stdio.h>
-
+/* a crear
+-sistema adyacente
+-hacer que cuando una fila se termine la fila de abajo se suba
+-sistem de puntos completo
+-el ultimo numero que no es un 0 en el grid se puede juntar con el primero numero en el array 
+*/
 int main()
 {
 
@@ -71,7 +76,7 @@ printf("%d matchcounter \n",matchcounter);
 
 //------------------------------------------------------------------------------------------------------ introduccion al usuario
 
-printf("\t*****Match10!!!*****");  //imprime el primer tablero
+printf("\t**Match10!!!**");  //imprime el primer tablero
 
      for (i = 0 ; i<9 ; i++) 
      {
@@ -79,7 +84,7 @@ printf("\t*****Match10!!!*****");  //imprime el primer tablero
          
          for (j = 0 ; j<9 ; j++)
          {
-             printf("%d  \t", tablerodeljuego[i][j]);
+             printf("|%d| ", tablerodeljuego[i][j]);
          }  
      }
 
@@ -100,7 +105,7 @@ while ( counter<matchcounter) //cuando la variable counter se igual a matchcount
      cordx2=0;
      cordy2=0;
      
-     printf(" \n el counter es %d \n",counter); //indica al programador cuantos matches se han encontrado por el jugador
+     printf(" \nel counter es %d \n",counter); //indica al programador cuantos matches se han encontrado por el jugador
      
      
      while (match != 1) //cuando un match es encontrado regresa aqui para otro turno
@@ -115,15 +120,25 @@ while ( counter<matchcounter) //cuando la variable counter se igual a matchcount
              printf("\n\nJUGADOR 2 \n");
         }
          
-         
-         
+         if (tablerodeljuego==0) //bypass of array char restriction, just uses the 0 as a conditional instead to print an empty space.
+         {
+              printf("| |");
+         }
         for (i = 0 ; i<9 ; i++) //imprime el tablero
         {
              printf("\n");
              
               for (j = 0 ; j<9 ; j++)
              {
-                  printf("%d  \t", tablerodeljuego[i][j]);
+                 if (tablerodeljuego[i][j]==0)
+                 {
+                      printf("| |");
+                 }
+                 if (tablerodeljuego[i][j]!=0)
+                 {
+                      printf("|%d|", tablerodeljuego[i][j]);
+                 }
+                  
              }  
          }       
          
@@ -158,7 +173,7 @@ while ( counter<matchcounter) //cuando la variable counter se igual a matchcount
                             
                      for (j = 0 ; j<9 ; j++)
                      {
-                     printf("%d  \t", tablerodeljuego[i][j]);
+                     printf("|%d|", tablerodeljuego[i][j]);
                      }   
                  }
               
@@ -183,8 +198,8 @@ while ( counter<matchcounter) //cuando la variable counter se igual a matchcount
              }
             
             
-            while (cordx2 == cordx && cordy2 == cordy) //loop solo para evitar que causen un error por elejir la misma casilla does veces
-            {
+             while (cordx2 == cordx && cordy2 == cordy) //loop solo para evitar que causen un error por elejir la misma casilla does veces
+             {
                 
              printf("no puede elegir la misma casilla dos veces \n");
              printf("\n");
@@ -198,7 +213,15 @@ while ( counter<matchcounter) //cuando la variable counter se igual a matchcount
             
             
             
-            if (tablerodeljuego[cordy][cordx] == tablerodeljuego[cordy2][cordx2]) //al encontrar un par entre las casillas elejidas
+            if (tablerodeljuego[cordy][cordx] == tablerodeljuego[cordy2][cordx2] && 
+            tablerodeljuego[cordy2][cordx2] == tablerodeljuego[cordy][cordx-1] || 
+            tablerodeljuego[cordy2][cordx2] ==  tablerodeljuego[cordy][cordx+1] ||
+            tablerodeljuego[cordy2][cordx2] == tablerodeljuego[cordy+1][cordx] || 
+            tablerodeljuego[cordy2][cordx2] ==  tablerodeljuego[cordy-1][cordx]||
+            tablerodeljuego[cordy2][cordx2] == tablerodeljuego[cordy+1][cordx+1] || 
+            tablerodeljuego[cordy2][cordx2] ==  tablerodeljuego[cordy-1][cordx-1] || 
+            tablerodeljuego[cordy2][cordx2] == tablerodeljuego[cordy+1][cordx-1] || 
+            tablerodeljuego[cordy2][cordx2] ==  tablerodeljuego[cordy-1][cordx+1]) //al encontrar un par entre las casillas elejidas
             {
                 
                 
@@ -207,15 +230,6 @@ while ( counter<matchcounter) //cuando la variable counter se igual a matchcount
                  counter = counter + 1; //cantidad de pares encontrados + 1
                  tablerodeljuego[cordy][cordx]=0;
                  tablerodeljuego[cordy2][cordx2]=0;
-                 for (i = 0 ; i<9 ; i++) //imrpime el tablero 
-                 {
-                     printf("\n");
-                            
-                     for (j = 0 ; j<9 ; j++)
-                     {
-                     printf("%d  \t", tablerodeljuego[i][j]);
-                     }   
-                 }
             }
             
             if(match == 0) //si no fue un match cambia de jugador y no cambia nada en el tablero
