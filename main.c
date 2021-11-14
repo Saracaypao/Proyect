@@ -3,6 +3,8 @@
 
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h> 
 /* a crear
 -hacer que cuando una fila se termine la fila de abajo se suba
 -sistema de puntos completo
