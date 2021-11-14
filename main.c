@@ -1,14 +1,16 @@
 /***proyecto 
- * primera parte***/
+ * Segunda parte***/
 
 
 #include <stdio.h>
 /* a crear
--sistema adyacente
 -hacer que cuando una fila se termine la fila de abajo se suba
--sistem de puntos completo
+-sistema de puntos completo
 -el ultimo numero que no es un 0 en el grid se puede juntar con el primero numero en el array 
+-tener los numeros afuera del tablero que digan las coordenadas 
+-hacer un check al final que vea si todos os pares tienen al menos un adyacente, sino termina el juego
 */
+
 int main()
 {
 
@@ -27,8 +29,6 @@ int cordy2 = 0;
 int match = 0; //variables occupadas en while loops
 int repeat = 1;
 int counter =0;
-
-int playertoken=1; //decide que jugador le toca elegir
 
 
 //----------------------------------------------------------------------------------------------------- pre programa
@@ -109,16 +109,7 @@ while ( counter<matchcounter) //cuando la variable counter se igual a matchcount
      
      
      while (match != 1) //cuando un match es encontrado regresa aqui para otro turno
-     {  
-         
-         if (playertoken == 1) //determina que jugador va
-        {
-             printf("\n\nJUGADOR 1 \n");
-        }   
-         else
-        {
-             printf("\n\nJUGADOR 2 \n");
-        }
+     {
          
          if (tablerodeljuego==0) //bypass of array char restriction, just uses the 0 as a conditional instead to print an empty space.
          {
@@ -213,38 +204,28 @@ while ( counter<matchcounter) //cuando la variable counter se igual a matchcount
             
             
             
-            if (tablerodeljuego[cordy][cordx] == tablerodeljuego[cordy2][cordx2] && 
-            tablerodeljuego[cordy2][cordx2] == tablerodeljuego[cordy][cordx-1] || 
-            tablerodeljuego[cordy2][cordx2] ==  tablerodeljuego[cordy][cordx+1] ||
-            tablerodeljuego[cordy2][cordx2] == tablerodeljuego[cordy+1][cordx] || 
-            tablerodeljuego[cordy2][cordx2] ==  tablerodeljuego[cordy-1][cordx]||
-            tablerodeljuego[cordy2][cordx2] == tablerodeljuego[cordy+1][cordx+1] || 
-            tablerodeljuego[cordy2][cordx2] ==  tablerodeljuego[cordy-1][cordx-1] || 
-            tablerodeljuego[cordy2][cordx2] == tablerodeljuego[cordy+1][cordx-1] || 
-            tablerodeljuego[cordy2][cordx2] ==  tablerodeljuego[cordy-1][cordx+1]) //al encontrar un par entre las casillas elejidas
+            if (tablerodeljuego[cordy][cordx]==tablerodeljuego[cordy2][cordx2]) //largo check que busca saber si la segunda casilla es adyacente a la primera y que el valor de la casilla 1 es = a casilla 2            
             {
-                
-                
-                 printf("\nencontro un match \n");
-                 match = 1; //un match encontrado entonces el loop termina aqui inmediatamente
-                 counter = counter + 1; //cantidad de pares encontrados + 1
-                 tablerodeljuego[cordy][cordx]=0;
-                 tablerodeljuego[cordy2][cordx2]=0;
-            }
+                if(cordx2 == cordx-1 ||
+                   cordx2 == cordx+1 ||
+                   cordy2 == cordy+1 ||
+                   cordy2 == cordy-1 ||
+                   (cordy2 == cordy+1 && cordx2 == cordx+1) ||
+                   (cordy2 == cordy-1 && cordx2 == cordx-1) ||
+                   (cordy2 == cordy+1 && cordx2 == cordx-1) ||
+                   (cordy2 == cordy-1 && cordx2 == cordx+1))
+                   {
+                     printf("\nencontro un match \n");
+                     match = 1; //un match encotrado entonces el loop termina aqui inmediatamente 
+                     counter = counter +  1; //cantidad de pares encontrados + 1
+                     tablerodeljuego[cordy][cordx]=0;
+                     tablerodeljuego[cordy2][cordx2]=0;
+                   }
+                }
             
             if(match == 0) //si no fue un match cambia de jugador y no cambia nada en el tablero
-            {
-                 if (playertoken == 1)  //cambia de jugadora dependiendo de quien esta en turno
-                 {
-                     playertoken=0;
-                 }   
-                 else 
-                 {
-                     playertoken=1;
-                 }   
-                 
-                 printf("\nNo Match \n"); 
-                 
+            {   
+                 printf("\nNo Match \n");    
             }
             
      }       
